@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>🏛️ Banque Digitale DT - ISET Médenine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #0f2b5e;
+            --navy-dark: #0a1e44;
+            --forest-green: #0b5e42;
+            --forest-green-light: #15845c;
+            --gold: #d4af37;
+            --gold-light: #f5c842;
+            --pink: #e83e8c;
+            --purple: #7c3aed;
+            --orange: #f97316;
+            --teal: #0d9488;
+            --bright-green: #10b981;
+            --white: #ffffff;
+            --light-bg: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-700: #374151;
+            --gray-900: #111827;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.15);
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(145deg, #eef2f5 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .app-container {
+            max-width: 520px;
+            width: 100%;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 2rem;
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--navy) 0%, #142c5a 100%);
+            color: white;
+            padding: 1.8rem 1.5rem 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .logo {
+            font-size: 1.65rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            letter-spacing: -0.3px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--gold-light), var(--gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .authors {
+            font-size: 0.8rem;
+            opacity: 0.85;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .main-content {
+            padding: 1.75rem 1.5rem 2rem;
+            background: var(--white);
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 1.75rem;
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--gray-100);
+            padding-bottom: 0.9rem;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: white;
+        }
+
+        .card-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            letter-spacing: -0.3px;
+        }
+
+        .balance-card {
+            background: linear-gradient(125deg, var(--forest-green) 0%, var(--forest-green-light) 100%);
+            border-radius: 1.75rem;
+            margin-bottom: 1.75rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .balance-content {
+            padding: 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .balance-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .balance-amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-top: 0.5rem;
+            letter-spacing: -1px;
+            word-break: break-word;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .menu-item {
+            background: var(--white);
+            border: 1.5px solid var(--gray-200);
+            border-radius: 1.25rem;
+            padding: 1rem 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            color: var(--gray-800);
+        }
+
+        .menu-item:hover {
+            border-color: var(--navy);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            background: #fefefe;
+        }
+
+        .menu-icon {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 0.6rem;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: none;
+            border-radius: 1.25rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: linear-gradient(95deg, var(--navy), var(--navy-dark));
+            color: white;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            filter: brightness(1.02);
+        }
+
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            border: 1px solid var(--gray-300);
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            border-color: var(--navy);
+        }
+
+        .btn-danger {
+            background: #fee2e2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-500);
+            margin-bottom: 0.6rem;
+            display: block;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 1.25rem;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            background: var(--white);
+            font-family: inherit;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--navy);
+            box-shadow: 0 0 0 3px rgba(15, 43, 94, 0.1);
+        }
+
+        .message {
+            padding: 0.9rem;
+            border-radius: 1rem;
+            margin-top: 1rem;
+            font-weight: 500;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .message-success {
+            background: #e0f2e9;
+            color: #0b5e42;
+            border-left: 4px solid var(--forest-green);
+        }
+
+        .message-error {
+            background: #fee2e2;
+            color: #b91c1c;
+            border-left: 4px solid #ef4444;
+        }
+
+        .user-welcome {
+            background: linear-gradient(115deg, #eef2ff, #e6edfa);
+            padding: 1.2rem;
+            border-radius: 1.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        .account-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .account-stat {
+            background: var(--gray-100);
+            border-radius: 1.25rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--navy);
+        }
+
+        .flex-buttons {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 480px) {
+            .menu-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+            .app-container { border-radius: 1.5rem; }
+            .main-content { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-landmark"></i>
+            <span>BIENVENUE À LA BANQUE DIGITALE (DT)</span>
+        </div>
+        <div class="authors">Auteurs: S. Jemal & A. Fessi</div>
+    </header>
+
+    <main class="main-content">
+        <!-- AUTH MENU -->
+        <div id="authMenu">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: linear-gradient(135deg, var(--navy), var(--navy-dark));">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h2 class="card-title">ACCÈS SÉCURISÉ</h2>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <button class="btn btn-primary" onclick="showLogin()"><i class="fas fa-key"></i> 1. Se connecter</button>
+                    <button class="btn btn-primary" onclick="showSignup()" style="background: linear-gradient(135deg, var(--forest-green), var(--forest-green-light));"><i class="fas fa-user-plus"></i> 2. Créer un compte</button>
+                    <button class="btn btn-primary" onclick="exitApp()" style="background: linear-gradient(135deg, var(--gray-500), #374151);"><i class="fas fa-power-off"></i> 3. Quitter</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <div id="loginForm" class="hidden">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: linear-gradient(135deg, var(--navy), var(--navy-dark));"><i class="fas fa-sign-in-alt"></i></div>
+                    <h2 class="card-title">CONNEXION</h2>
+                </div>
+                <div class="form-group"><label class="form-label">Numéro de compte</label><input type="text" class="form-input" id="loginAccNum" placeholder="Ex: DT1000"></div>
+                <div class="form-group"><label class="form-label">Nom complet</label><input type="text" class="form-input" id="loginName" placeholder="Votre nom exact"></div>
+                <button class="btn btn-primary" onclick="doLogin()"><i class="fas fa-arrow-right"></i> Se connecter</button>
+                <button class="btn btn-secondary" onclick="showAuthMenu()" style="margin-top: 0.8rem;">Retour</button>
+                <div id="loginMsg"></div>
+            </div>
+        </div>
+
+        <!-- SIGNUP FORM -->
+        <div id="signupForm" class="hidden">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: linear-gradient(135deg, var(--forest-green), var(--forest-green-light));"><i class="fas fa-file-signature"></i></div>
+                    <h2 class="card-title">NOUVEAU COMPTE</h2>
+                </div>
+                <div class="form-group"><label class="form-label">Nom complet</label><input type="text" class="form-input" id="signupName" placeholder="Nom et prénom"></div>
+                <div class="form-group"><label class="form-label">Numéro de compte (unique)</label><input type="text" class="form-input" id="signupAccNum" placeholder="Votre identifiant"></div>
+                <button class="btn btn-primary" onclick="doSignup()"><i class="fas fa-check-circle"></i> Créer le compte</button>
+                <button class="btn btn-secondary" onclick="showAuthMenu()" style="margin-top: 0.8rem;">Retour</button>
+                <div id="signupMsg"></div>
+            </div>
+        </div>
+
+        <!-- MAIN MENU -->
+        <div id="mainMenu" class="hidden">
+            <div class="user-welcome"><i class="fas fa-user-astronaut" style="font-size: 2rem; display: block; margin-bottom: 0.5rem;"></i>Bienvenue, <span id="userName"></span> !</div>
+            <div class="balance-card"><div class="balance-content"><div class="balance-label">SOLDE PRINCIPAL</div><div class="balance-amount" id="balanceDisplay">0,000 DT</div></div></div>
+            <div class="card">
+                <div class="card-header"><div class="card-icon" style="background: linear-gradient(135deg, var(--navy), var(--navy-dark));"><i class="fas fa-bars"></i></div><h2 class="card-title">MENU PRINCIPAL</h2></div>
+                <div class="menu-grid">
+                    <div class="menu-item menu-savings" onclick="createSecondaryAccount()"><i class="fas fa-piggy-bank menu-icon"></i>1. Compte Secondaire</div>
+                    <div class="menu-item menu-loan" onclick="applyForLoan()"><i class="fas fa-hand-holding-usd menu-icon"></i>2. Demander Prêt</div>
+                    <div class="menu-item menu-profile" onclick="showAccountInfo()"><i class="fas fa-id-card menu-icon"></i>3. Informations</div>
+                    <div class="menu-item menu-withdraw" onclick="doWithdraw()"><i class="fas fa-money-bill-wave menu-icon"></i>4. Retrait</div>
+                    <div class="menu-item menu-deposit" onclick="doDeposit()"><i class="fas fa-coins menu-icon"></i>5. Dépôt</div>
+                    <div class="menu-item menu-profile" onclick="editProfile()"><i class="fas fa-user-edit menu-icon"></i>6. Modifier Profil</div>
+                    <div class="menu-item" onclick="reportProblem()"><i class="fas fa-exclamation-triangle menu-icon" style="color: var(--orange);"></i>7. Signaler Problème</div>
+                    <div class="menu-item menu-transfer" onclick="handleTransfer(false)"><i class="fas fa-paper-plane menu-icon"></i>8. Virement</div>
+                    <div class="menu-item menu-transfer" onclick="handleTransfer(true)"><i class="fas fa-sync-alt menu-icon"></i>9. Virement Permanent</div>
+                    <div class="menu-item" onclick="logout()" style="background: linear-gradient(135deg, #2d3748, #1f2937); color: white; border: none;"><i class="fas fa-sign-out-alt menu-icon" style="color: white;"></i>10. Déconnexion</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- dynamic container for sub-forms (wizard style) -->
+        <div id="dynamicForm" class="hidden"></div>
+    </main>
+</div>
+
+<script>
+    // ---------- DATA ----------
+    let database = {};
+    let currentUser = null;
+
+    function formatDT(amount) {
+        return amount.toFixed(3).replace('.', ',') + ' DT';
+    }
+
+    function updateBalanceUI() {
+        if (currentUser) document.getElementById('balanceDisplay').innerText = formatDT(currentUser.balance);
+    }
+
+    function showScreen(elementId) {
+        const containers = ['authMenu', 'loginForm', 'signupForm', 'mainMenu', 'dynamicForm'];
+        containers.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.classList.add('hidden');
+        });
+        document.getElementById(elementId).classList.remove('hidden');
+    }
+
+    function showAuthMenu() { showScreen('authMenu'); }
+    function showLogin() { showScreen('loginForm'); document.getElementById('loginMsg').innerHTML = ''; }
+    function showSignup() { showScreen('signupForm'); document.getElementById('signupMsg').innerHTML = ''; }
+
+    function showMainMenu() {
+        if (!currentUser) { showAuthMenu(); return; }
+        showScreen('mainMenu');
+        document.getElementById('userName').innerText = currentUser.name;
+        updateBalanceUI();
+    }
+
+    function showMessage(containerId, msg, type) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+        container.innerHTML = `<div class="message message-${type}"><i class="fas ${icon}"></i>${msg}</div>`;
+        setTimeout(() => { if (container) container.innerHTML = ''; }, 2600);
+    }
+
+    // ---------- AUTH ----------
+    function doLogin() {
+        const accNum = document.getElementById('loginAccNum').value.trim();
+        const name = document.getElementById('loginName').value.trim();
+        const user = database[accNum];
+        if (user && user.name.toLowerCase() === name.toLowerCase()) {
+            currentUser = user;
+            showMessage('loginMsg', '✅ Accès autorisé. Bienvenue ' + currentUser.name, 'success');
+            setTimeout(showMainMenu, 1300);
+        } else {
+            showMessage('loginMsg', '❌ Identifiants incorrects.', 'error');
+        }
+    }
+
+    function doSignup() {
+        const name = document.getElementById('signupName').value.trim();
+        const accNum = document.getElementById('signupAccNum').value.trim();
+        if (!name || !accNum) {
+            showMessage('signupMsg', '⚠️ Tous les champs sont requis.', 'error');
+            return;
+        }
+        if (database[accNum]) {
+            showMessage('signupMsg', '❌ Ce numéro de compte existe déjà.', 'error');
+        } else {
+            database[accNum] = {
+                name: name, accNum: accNum, balance: 0.0,
+                secondaryAccounts: [],
+                loans: []
+            };
+            showMessage('signupMsg', '✨ Compte créé avec succès !', 'success');
+            currentUser = database[accNum];
+            setTimeout(showMainMenu, 1500);
+        }
+    }
+
+    function logout() {
+        // custom UI confirmation (no browser dialog)
+        const confirmDiv = document.createElement('div');
+        confirmDiv.className = 'card';
+        confirmDiv.innerHTML = `
+            <div class="card-header"><div class="card-icon" style="background:#374151;"><i class="fas fa-sign-out-alt"></i></div><h2 class="card-title">Déconnexion</h2></div>
+            <p style="margin-bottom:1.2rem;">Confirmer la déconnexion ?</p>
+            <div class="flex-buttons"><button class="btn btn-primary" id="confirmLogoutYes">Oui, déconnecter</button><button class="btn btn-secondary" id="confirmLogoutNo">Annuler</button></div>
+            <div id="logoutMsg"></div>
+        `;
+        document.getElementById('dynamicForm').innerHTML = '';
+        document.getElementById('dynamicForm').appendChild(confirmDiv);
+        showScreen('dynamicForm');
+        document.getElementById('confirmLogoutYes').onclick = () => {
+            showScreen('dynamicForm');
+            const thanksDiv = document.createElement('div');
+            thanksDiv.className = 'card';
+            thanksDiv.innerHTML = `<div class="message message-success"><i class="fas fa-heart"></i>===========================================<br>   MERCI D'AVOIR UTILISÉ NOTRE SERVICE !   <br>       Déconnexion en cours... Bye!        <br>===========================================</div>`;
+            document.getElementById('dynamicForm').innerHTML = '';
+            document.getElementById('dynamicForm').appendChild(thanksDiv);
+            setTimeout(() => {
+                currentUser = null;
+                showAuthMenu();
+            }, 2000);
+        };
+        document.getElementById('confirmLogoutNo').onclick = () => showMainMenu();
+    }
+
+    function exitApp() {
+        const exitDiv = document.createElement('div');
+        exitDiv.className = 'card';
+        exitDiv.innerHTML = `<div class="message message-success" style="text-align:center;"><i class="fas fa-door-open"></i>===========================================<br>   MERCI D'AVOIR UTILISÉ NOTRE SERVICE !   <br>          À BIENTÔT CHEZ NOUS.             <br>===========================================</div>`;
+        document.getElementById('dynamicForm').innerHTML = '';
+        document.getElementById('dynamicForm').appendChild(exitDiv);
+        showScreen('dynamicForm');
+        setTimeout(() => { window.location.reload(); }, 3000);
+    }
+
+    // ---------- MENU ACTIONS (No native dialogs) ----------
+    function createSecondaryAccount() {
+        const html = `
+            <div class="card">
+                <div class="card-header"><div class="card-icon" style="background: linear-gradient(135deg, var(--bright-green), #2b9e6e);"><i class="fas fa-plus-circle"></i></div><h2 class="card-title">TYPE DE COMPTE</h2></div>
+                <div class="menu-grid">
+                    <div class="menu-item menu-savings" onclick="addSecondaryAccount('Épargne')"><i class="fas fa-chart-line menu-icon"></i>1. Épargne</div>
+                    <div class="menu-item" onclick="addSecondaryAccount('Urgence')"><i class="fas fa-shield-alt menu-icon" style="color: var(--orange);"></i>2. Urgence</div>
+                    <div class="menu-item menu-profile" onclick="addSecondaryAccount('Personnel')"><i class="fas fa-user menu-icon"></i>3. Personnel</div>
+                    <div class="btn btn-secondary" onclick="showMainMenu()" style="grid-column:span 2; margin-top:0.5rem;"><i class="fas fa-arrow-left"></i> 5. Retour</div>
+                </div>
+            </div>
+        `;
+        document.getElementById('dynamicForm').innerHTML = html;
+        showScreen('dynamicForm');
+    }
+
+    function addSecondaryAccount(type) {
+        if (!currentUser.secondaryAccounts.includes(type)) {
+            currentUser.secondaryAccounts.push(type);
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'message message-success';
+            msgDiv.innerHTML = `<i class="fas fa-check-circle"></i> ✅ Compte "${type}" ajouté avec succès !`;
+            document.getElementById('dynamicForm').prepend(msgDiv);
+            setTimeout(() => showMainMenu(), 1200);
+        } else {
+            const errDiv = document.createElement('div');
+            errDiv.className = 'message message-error';
+            errDiv.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ⚠️ Vous possédez déjà un compte "${type}".`;
+            document.getElementById('dynamicForm').prepend(errDiv);
+            setTimeout(() => showMainMenu(), 1200);
+        }
+    }
+
+    function applyForLoan() {
+        const html = `
+            <div class="card">
+                <div class="card-header"><div class="card-icon" style="background:var(--gold);"><i class="fas fa-calculator"></i></div><h2 class="card-title">CALCULATRICE DE PRÊT</h2></div>
+                <div class="form-group"><label class="form-label">Salaire mensuel (DT)</label><input type="number" id="loanSalary" class="form-input" step="any"></div>
+                <div class="form-group"><label class="form-label">Montant souhaité (DT)</label><input type="number" id="loanAmount" class="form-input" step="any"></div>
+                <div class="form-group"><label class="form-label">Durée (années)</label><input type="number" id="loanYears" class="form-input" step="1"></div>
+                <button class="btn btn-primary" id="computeLoanBtn">Valider</button>
+                <button class="btn btn-secondary" onclick="showMainMenu()">Annuler</button>
+                <div id="loanResultMsg"></div>
+            </div>
+        `;
+        document.getElementById('dynamicForm').innerHTML = html;
+        showScreen('dynamicForm');
+        document.getElementById('computeLoanBtn').onclick = () => {
+            const salaire = parseFloat(document.getElementById('loanSalary').value);
+            const montant = parseFloat(document.getElementById('loanAmount').value);
+            const years = parseInt(document.getElementById('loanYears').value);
+            if (isNaN(salaire) || isNaN(montant) || isNaN(years) || salaire <= 0 || montant <= 0 || years <= 0) {
+                document.getElementById('loanResultMsg').innerHTML = '<div class="message message-error">❌ Valeurs invalides.</div>';
+                return;
+            }
+            const mens = (montant * 1.07) / (years * 12);
+            const maxMens = salaire * 0.4;
+            if (mens <= maxMens) {
+                currentUser.balance += montant;
+                currentUser.loans.push(`Prêt ${montant.toFixed(2)} DT (${mens.toFixed(3)} DT/mois)`);
+                updateBalanceUI();
+                document.getElementById('loanResultMsg').innerHTML = `<div class="message message-success">✅ PRÊT APPROUVÉ (Mensualité: ${mens.toFixed(3)} DT)</div>`;
+                setTimeout(() => showMainMenu(), 2000);
+            } else {
+                document.getElementById('loanResultMsg').innerHTML = `<div class="message message-error">❌ REFUSÉ (Capacité insuffisante). Mensualité ${mens.toFixed(3)} DT > ${maxMens.toFixed(3)} DT</div>`;
+                setTimeout(() => document.getElementById('loanResultMsg').innerHTML = '', 2500);
+            }
+        };
+    }
+
+    function showAccountInfo() {
+        const secondaryCount = currentUser.secondaryAccounts.length;
+        const loansCount = currentUser.loans.length;
+        const html = `
+            <div class="card">
+                <div class="card-header"><div class="card-icon" style="background: linear-gradient(135deg, var(--navy), #1e3a8a);"><i class="fas fa-address-card"></i></div><h2 class="card-title">INFORMATIONS CLIENT</h2></div>
+                <div class="account-grid">
+                    <div class="account-stat"><div class="stat-value">${currentUser.name.toUpperCase()}</div><div class="stat-label">TITULAIRE</div></div>
+                    <div class="account-stat"><div class="stat-value">${formatDT(currentUser.balance)}</div><div class="stat-label">SOLDE GLOBAL</div></div>
+                    <div class="account-stat"><div class="stat-value">${secondaryCount}</div><div class="stat-label">COMPTES SEC.</div></div>
+                    <div class="account-stat"><div class="stat-value">${loansCount}</div><div class="stat-label">PRÊTS ACTIFS</div></div>
+                </div>
+                ${currentUser.secondaryAccounts.length ? `<p style="font-size:0.85rem; background:#f1f5f9; padding:0.75rem; border-radius:1rem;"><i class="fas fa-tags"></i> Comptes: ${currentUser.secondaryAccounts.join(', ')}</p>` : ''}
+                ${currentUser.loans.length ? `<p style="font-size:0.85rem; background:#fffbeb; padding:0.75rem; border-radius:1rem;"><i class="fas fa-file-invoice"></i> Derniers prêts: ${currentUser.loans.slice(-2).join(' ; ')}</p>` : ''}
+                <button class="btn btn-primary" onclick="showMainMenu()" style="margin-top: 1.5rem;">Retour au menu</button>
+            </div>
+        `;
+        document.getElementById('dynamicForm').innerHTML = html;
+        showScreen('dynamicForm');
+    }
+
+    function doDeposit() {
+        const html = `<div class="card"><div class="card-header"><div class="card-icon" style="background:var(--forest-green);"><i class="fas fa-coins"></i></div><h2 class="card-title">DÉPÔT</h2></div>
+            <div class="form-group"><label class="form-label">Montant (DT)</label><input type="number" id="depositAmount" class="form-input" step="any"></div>
+            <button class="btn btn-primary" id="confirmDeposit">Valider</button><button class="btn btn-secondary" onclick="showMainMenu()">Retour</button><div id="depositMsg"></div></div>`;
+        document.getElementById('dynamicForm').innerHTML = html;
+        showScreen('dynamicForm');
+        document.getElementById('confirmDeposit').onclick = () => {
+            let amt = parseFloat(document.getElementById('depositAmount').value);
+            if (isNaN(amt) || amt <= 0) { document.getElementById('depositMsg').innerHTML = '<div class="message message-error">Montant invalide</div>'; return; }
+            currentUser.balance += amt;
+            updateBalanceUI();
+            document.getElementById('depositMsg').innerHTML = `<div class="message message-success">✅ Dépôt de ${formatDT(amt)} effectué.</div>`;
+            setTimeout(() => showMainMenu(), 1500);
+        };
+    }
+
+    function doWithdraw() {
+        const html = `<div class="card"><div class="card-header"><div class="card-icon" style="background:var(--orange);"><i class="fas fa-money-bill-wave"></i></div><h2 class="card-title">RETRAIT</h2></div>
+            <div class="form-group"><label class="form-label">Montant (DT)</label><input type="number" id="withdrawAmount" class="form-input" step="any"></div>
+            <button class="btn btn-primary" id="confirmWithdraw">Valider</button><button class="btn btn-secondary" onclick="showMainMenu()">Retour</button><div id="withdrawMsg"></div></div>`;
+        document.getElementById('dynamicForm').innerHTML = html;
+        showScreen('dynamicForm');
+        document.getElementById('confirmWithdraw').onclick = () => {
+            let amt = parseFloat(document.getElementById('withdrawAmount').value);
+            if (isNaN(amt) || amt <= 0) { document.getElementById('withdrawMsg').innerHTML = '<div class="message message-error">Montant invalide</div>'; return; }
+            if (amt > currentUser.balance) { document.getElementById('withdrawMsg').innerHTML = `<div class="message message-error">❌ Solde insuffisant. Solde : ${formatDT(currentUser.balance)}</div>`; return; }
+            currentUser.balance -= amt;
+            updateBalanceUI();
+            document.getElementById('withdrawMsg').innerHTML = `<div class="message message-success">✅ Retrait de ${formatDT(amt)} effectué.</div>`;
+            setTimeout(() => showMainMenu(), 1500);
+        };
+    }
+
+    function editProfile() {
+        const html = `<div class="card"><div class="card-header"><div class="card-icon" style="background:var(--purple);"><i class="fas fa-user-edit"></i></div><h2 class="card-title">MODIFIER PROFIL</h2></div>
+            <div class="form-group"><label class="form-label">Nouveau nom</label><input type="text" id="newName" class="form-input" value="${currentUser.name}"></div>
+            <button class="btn btn-primary" id="saveProfile">Enregistrer</button><button class="btn btn-secondary" onclick="showMainMenu()">Retour</button><div id="profileMsg"></div></div>`;
+        document.getElementById('dynamicForm').innerHTML = html;
+        showScreen('dynamicForm');
+        document.getElementById('saveProfile').onclick = () => {
+            let newName = document.getElementById('newName').value.trim();
+            if (newName) { currentUser.name = newName; document.getElementById('profileMsg').innerHTML = '<div class="message message-success">✅ Profil modifié!</div>'; setTimeout(() => showMainMenu(), 1200); }
+            else document.getElementById('profileMsg').innerHTML = '<div class="message message-error">Nom invalide</div>';
+        };
+    }
+
+    function reportProblem() {
+        const html = `<div class="card"><div class="card-header"><div class="card-icon" style="background:var(--orange);"><i class="fas fa-exclamation-triangle"></i></div><h2 class="card-title">SIGNALER PROBLÈME</h2></div>
+            <div class="form-group"><label class="form-label">Description</label><textarea id="problemDesc" class="form-input" rows="3"></textarea></div>
+            <button class="btn btn-primary" id="sendReport">Envoyer</button><button class="btn btn-secondary" onclick="showMainMenu()">Annuler</button><div id="reportMsg"></div></div>`;
+        document.getElementById('dynamicForm').innerHTML = html;
+        showScreen('dynamicForm');
+        document.getElementById('sendReport').onclick = () => {
+            const prob = document.getElementById('problemDesc').value.trim();
+            if (prob) document.getElementById('reportMsg').innerHTML = '<div class="message message-success">✅ Reçu. Merci.</div>';
+            else document.getElementById('reportMsg').innerHTML = '<div class="message message-error">Description vide</div>';
+            setTimeout(() => showMainMenu(), 1500);
+        };
+    }
+
+    // Transfer system (Ponctuel / Permanent)
+    let transferContext = { isPermanent: false, step: 0, destType: '', details: {} };
+
+    function handleTransfer(isPermanent) {
+        transferContext = { isPermanent, step: 1, destType: '', details: {} };
+        renderTransferStep1();
+    }
+
+    function renderTransferStep1() {
+        const html = `<div class="card"><div class="card-header"><div class="card-icon" style="background:var(--teal);"><i class="fas fa-exchange-alt"></i></div><h2 class="card-title">${transferContext.isPermanent ? 'VIREMENT PERMANENT' : 'VIREMENT PONCTUEL'}</h2></div>
+            <button class="btn btn-primary" id="extTransfer">1. Un compte tiers (Externe)</button>
+            <button class="btn btn-primary" id="intTransfer" style="margin-top:1rem;">2. Un de mes comptes secondaires (Interne)</button>
+            <button class="btn btn-secondary" onclick="showMainMenu()" style="margin-top:1rem;">Retour</button>
+            <div id="stepMsg"></div></div>`;
+        document.getElementById('dynamicForm').innerHTML = html;
+        showScreen('dynamicForm');
+        document.getElementById('extTransfer').onclick = () => { transferContext.destType = 'external'; renderExternalForm(); };
+        document.getElementById('intTransfer').onclick = () => { 
+            if (currentUser.secondaryAccounts.length === 0) {
+                document.getElementById('stepMsg').innerHTML = '<div class="message message-error">❌ Aucun compte secondaire trouvé.</div>';
+                setTimeout(() => showMainMenu(), 1500);
+                return;
+            }
+            transferContext.destType = 'internal';
+            renderInternalForm();
+        };
+    }
+
+    function renderExternalForm() {
+        const html = `<div class="card"><div class="card-header"><div class="card-icon" style="background:var(--teal);"><i class="fas fa-globe"></i></div><h2 class="card-title">Bénéficiaire externe</h2></div>
+            <div class="form-group"><label class="form-label">Nom du bénéficiaire</label><input id="benefName" class="form-input"></div>
+            <div class="form-group"><label class="form-label">Numéro de compte</label><input id="benefAcc" class="form-input"></div>
+            <div class="form-group"><label class="form-label">Montant (DT)</label><input id="transferAmount" type="number" class="form-input" step="any"></div>
+            ${transferContext.isPermanent ? `<div class="form-group"><label class="form-label">Jour du mois (1-31)</label><input id="transferDay" type="number" class="form-input" min="1" max="31"></div>` : ''}
+            <button class="btn btn-primary" id="nextConfirmExt">Continuer</button>
+            <button class="btn btn-secondary" onclick="handleTransfer(${transferContext.isPermanent})">Retour</button>
+            <div id="extError"></div></div>`;
+        document.getElementById('dynamicForm').innerHTML = html;
+        document.getElementById('nextConfirmExt').onclick = () => {
+            const name = document.getElementById('benefName').value.trim();
+            const acc = document.getElementById('benefAcc').value.trim();
+            const amount = parseFloat(document.getElementById('transferAmount').value);
+            if (!name || !acc || isNaN(amount) || amount <= 0) {
+                document.getElementById('extError').innerHTML = '<div class="message message-error">Champs invalides</div>';
+                return;
+            }
+            transferContext.details = { name, acc, amount };
+            renderConfirmation();
+        };
+    }
+
+    function renderInternalForm() {
+        let options = '';
+        currentUser.secondaryAccounts.forEach((acc, idx) => { options += `<option value="${idx}">${acc}</option>`; });
+        const html = `<div class="card"><div class="card-header"><div class="card-icon" style="background:var(--teal);"><i class="fas fa-building"></i></div><h2 class="card-title">Virement interne</h2></div>
+            <div class="form-group"><label class="form-label">Compte secondaire destination</label><select id="internalSelect" class="form-select">${options}</select></div>
+            <div class="form-group"><label class="form-label">Montant (DT)</label><input id="intAmount" type="number" class="form-input" step="any"></div>
+            ${transferContext.isPermanent ? `<div class="form-group"><label class="form-label">Jour du mois (1-31)</label><input id="intDay" type="number" class="form-input" min="1" max="31"></div>` : ''}
+            <button class="btn btn-primary" id="nextConfirmInt">Continuer</button>
+            <button class="btn btn-secondary" onclick="handleTransfer(${transferContext.isPermanent})">Retour</button>
+            <div id="intError"></div></div>`;
+        document.getElementById('dynamicForm').innerHTML = html;
+        document.getElementById('nextConfirmInt').onclick = () => {
+            const idx = parseInt(document.getElementById('internalSelect').value);
+            const amount = parseFloat(document.getElementById('intAmount').value);
+            if (isNaN(amount) || amount <= 0) { document.getElementById('intError').innerHTML = '<div class="message message-error">Montant invalide</div>'; return; }
+            const targetAcc = currentUser.secondaryAccounts[idx];
+            transferContext.details = { name: currentUser.name + " (Interne)", acc: targetAcc, amount, idx };
+            renderConfirmation();
+        };
+    }
+
+    function renderConfirmation() {
+        const details = transferContext.details;
+        const summary = `[ RÉSUMÉ : ${details.name.toUpperCase()} | ${details.amount.toFixed(3)} DT ]`;
+        const html = `<div class="card"><div class="card-header"><div class="card-icon" style="background:var(--gold);"><i class="fas fa-check-double"></i></div><h2 class="card-title">CONFIRMATION</h2></div>
+            <p style="margin-bottom:1.5rem; font-weight:600;">${summary}</p>
+            <div class="flex-buttons"><button class="btn btn-primary" id="confirmYes">Oui, confirmer</button><button class="btn btn-danger" id="confirmNo">Non, annuler</button></div>
+            <div id="confirmMsg"></div></div>`;
+        document.getElementById('dynamicForm').innerHTML = html;
+        document.getElementById('confirmYes').onclick = () => {
+            if (!transferContext.isPermanent) {
+                if (details.amount > currentUser.balance) {
+                    document.getElementById('confirmMsg').innerHTML = '<div class="message message-error">❌ Solde insuffisant.</div>';
+                    setTimeout(() => showMainMenu(), 1500);
+                    return;
+                }
+                currentUser.balance -= details.amount;
+                updateBalanceUI();
+            }
+            document.getElementById('confirmMsg').innerHTML = '<div class="message message-success">✅ Opération validée.</div>';
+            setTimeout(() => showMainMenu(), 1500);
+        };
+        document.getElementById('confirmNo').onclick = () => { showMainMenu(); };
+    }
+
+    // initial preload demo accounts
+    database["DT1000"] = { name: "Sami Ben Ali", accNum: "DT1000", balance: 1250.75, secondaryAccounts: ["Épargne"], loans: [] };
+    database["DT2024"] = { name: "Leila Fessi", accNum: "DT2024", balance: 3400.00, secondaryAccounts: ["Personnel", "Urgence"], loans: ["Prêt 5000 DT"] };
+    showAuthMenu();
+</script>
+</body>
+</html>
